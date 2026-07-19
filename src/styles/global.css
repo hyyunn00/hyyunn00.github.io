@@ -861,6 +861,11 @@ footer a:hover {
 }
 
 @media (max-width: 860px) {
+  .wordmark {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
   .hero {
     grid-template-columns: 1fr;
   }
