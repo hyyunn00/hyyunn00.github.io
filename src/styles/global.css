@@ -164,6 +164,7 @@ svg {
   font-family: 'Noto Serif TC', 'Songti TC', serif;
   font-size: 1.05rem;
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 .wordmark .latin {
   font-family: 'SF Mono', Menlo, monospace;
@@ -447,7 +448,7 @@ nav.primary a.is-active::after {
 
 .proof .caption {
   position: absolute;
-  left: 10px;
+  left: 34px;
   bottom: 10px;
   right: 44px;
   z-index: 2;
