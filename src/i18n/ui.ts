@@ -67,6 +67,7 @@ export const ui = {
       placeholder: '搜尋作品、文章⋯⋯',
     },
     themeToggle: '切換深色 / 淺色',
+    menuToggle: '選單',
   },
   en: {
     siteTitle: 'I-EN HUANG',
@@ -132,6 +133,7 @@ export const ui = {
       placeholder: 'Search work, journal…',
     },
     themeToggle: 'Toggle light / dark',
+    menuToggle: 'Menu',
   },
 } as const;
 
