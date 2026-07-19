@@ -1,0 +1,28 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  items: CollectionEntry<'work'>[];
+  lang: Locale;
+}
+
+const { items, lang } = Astro.props;
+
+function slugOf(id: string) {
+  return id.split('/').slice(1).join('/');
+}
+---
+
+<div class="sheet">
+  {
+    items.map((item) => (
+      <a class={`frame swatch-${item.data.cover}`} href={getRelativeLocaleUrl(lang, `/work/${slugOf(item.id)}/`)}>
+        <span class="swatch" />
+        <span class="frameno">{item.data.frameNo}</span>
+        <span class="flabel">{item.data.title}</span>
+      </a>
+    ))
+  }
+</div>

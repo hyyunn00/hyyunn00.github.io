@@ -1,0 +1,48 @@
+---
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../TopBar.astro';
+import Footer from '../Footer.astro';
+import ProofFrame from '../ProofFrame.astro';
+import { t, type Locale } from '../../i18n/ui';
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+  lang: Locale;
+  altHref: string;
+}
+
+const { entry, lang, altHref } = Astro.props;
+const dict = t(lang);
+const { Content } = await render(entry);
+
+const dateFormatter = new Intl.DateTimeFormat(lang === 'zh-TW' ? 'zh-TW' : 'en-US', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+---
+
+<Layout lang={lang} title={`${entry.data.title} · ${dict.siteTitle}`} description={entry.data.title}>
+  <TopBar lang={lang} active="work" altHref={altHref} />
+  <main id="main" class="page work-detail" data-pagefind-body>
+    <div style="padding-top: clamp(28px, 4vw, 40px);">
+      <a class="view-all" href={getRelativeLocaleUrl(lang, '/work/')}>{dict.work.backToAll}</a>
+    </div>
+    <div style="max-width: 520px; margin-top: 22px;">
+      <ProofFrame frameNo={entry.data.frameNo} caption="" swatch={entry.data.cover} ariaLabel={entry.data.title} />
+    </div>
+    <h1 class="serif" style="font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 30px 0 14px;">{entry.data.title}</h1>
+    <div class="work-meta mono">
+      <span>{dateFormatter.format(entry.data.date)}</span>
+      {entry.data.location && <span>{entry.data.location}</span>}
+      {entry.data.settings && <span>{entry.data.settings}</span>}
+    </div>
+    <div class="work-body">
+      <Content />
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Layout>

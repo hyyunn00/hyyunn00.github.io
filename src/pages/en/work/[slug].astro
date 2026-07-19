@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import WorkDetailPage from '../../../components/views/WorkDetailPage.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('work', (entry) => entry.id.startsWith('en/') && !entry.data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.id.split('/').slice(1).join('/') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<WorkDetailPage entry={entry} lang="en" altHref={getRelativeLocaleUrl('zh-TW', `/work/${Astro.params.slug}/`)} />

@@ -1,0 +1,46 @@
+---
+import { render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../TopBar.astro';
+import Footer from '../Footer.astro';
+import { t, type Locale } from '../../i18n/ui';
+
+interface Props {
+  entry: CollectionEntry<'journal'>;
+  lang: Locale;
+  altHref: string;
+}
+
+const { entry, lang, altHref } = Astro.props;
+const dict = t(lang);
+const { Content } = await render(entry);
+
+const dateFormatter = new Intl.DateTimeFormat(lang === 'zh-TW' ? 'zh-TW' : 'en-US', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+---
+
+<Layout lang={lang} title={`${entry.data.title} · ${dict.siteTitle}`} description={entry.data.excerpt}>
+  <TopBar lang={lang} active="journal" altHref={altHref} />
+  <main id="main" class="page" data-pagefind-body>
+    <div style="padding-top: clamp(28px, 4vw, 40px);">
+      <a class="view-all" href={getRelativeLocaleUrl(lang, '/journal/')}>{dict.journal.backToAll}</a>
+    </div>
+    <div style="max-width: 38em; margin-top: 20px;">
+      <span class="date mono" style="font-size:0.72rem; color: var(--ink-faint); letter-spacing: 0.04em;">
+        {dateFormatter.format(entry.data.date)}
+      </span>
+      <h1 class="serif" style="font-size: clamp(1.7rem, 3.2vw, 2.4rem); line-height: 1.35; margin: 14px 0 30px;">
+        {entry.data.title}
+      </h1>
+    </div>
+    <div class="journal-article">
+      <Content />
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Layout>

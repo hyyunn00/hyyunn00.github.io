@@ -1,0 +1,79 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { t, type Locale } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  active: 'home' | 'work' | 'journal' | 'about' | 'contact';
+  altHref: string;
+}
+
+const { lang, active, altHref } = Astro.props;
+const dict = t(lang);
+
+const nav = [
+  { key: 'home', href: getRelativeLocaleUrl(lang, '/') },
+  { key: 'work', href: getRelativeLocaleUrl(lang, '/work/') },
+  { key: 'journal', href: getRelativeLocaleUrl(lang, '/journal/') },
+  { key: 'about', href: getRelativeLocaleUrl(lang, '/about/') },
+  { key: 'contact', href: getRelativeLocaleUrl(lang, '/contact/') },
+] as const;
+
+const searchHref = getRelativeLocaleUrl(lang, '/search/');
+---
+
+<div class="topbar">
+  <a class="wordmark" href={getRelativeLocaleUrl(lang, '/')}>
+    <span class="cjk">{dict.siteTitle}</span>
+    <span class="latin">{dict.siteSubtitle}</span>
+  </a>
+  <nav class="primary" aria-label="Primary">
+    {
+      nav.map((item) => (
+        <a href={item.href} class={active === item.key ? 'is-active' : ''}>
+          {dict.nav[item.key]}
+          <span class="cjk-sub">{dict.nav[(item.key + 'Sub') as keyof typeof dict.nav]}</span>
+        </a>
+      ))
+    }
+  </nav>
+  <div class="topbar-right">
+    <div class="lang-toggle">
+      <a href={lang === 'zh-TW' ? Astro.url.pathname : altHref} aria-current={lang === 'zh-TW'}>中</a>
+      <span>/</span>
+      <a href={lang === 'en' ? Astro.url.pathname : altHref} aria-current={lang === 'en'}>EN</a>
+    </div>
+    <a class="icon-btn" href={searchHref} aria-label={dict.search.title} title={dict.search.title}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="10.5" cy="10.5" r="6.5"></circle>
+        <path d="M20 20l-4.35-4.35"></path>
+      </svg>
+    </a>
+    <button
+      class="icon-btn theme-toggle"
+      type="button"
+      aria-label={dict.themeToggle}
+      title={dict.themeToggle}
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="12" cy="12" r="4.2"></circle>
+        <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"
+        ></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  document.querySelectorAll('.theme-toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var root = document.documentElement;
+      var current =
+        root.getAttribute('data-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      var next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+  });
+</script>

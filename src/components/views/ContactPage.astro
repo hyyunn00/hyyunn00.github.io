@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../TopBar.astro';
+import Footer from '../Footer.astro';
+import { t, type Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  altHref: string;
+}
+
+const { lang, altHref } = Astro.props;
+const dict = t(lang);
+
+// TODO: replace with your own Formspree form ID — sign up free at https://formspree.io
+const FORMSPREE_ID = 'YOUR_FORM_ID';
+---
+
+<Layout lang={lang} title={`${dict.nav.contactSub} · ${dict.siteTitle}`}>
+  <TopBar lang={lang} active="contact" altHref={altHref} />
+  <main id="main" class="page" data-pagefind-body>
+    <div class="page-head">
+      <h1 class="serif">{dict.nav.contactSub} <span class="en">{dict.nav.contact}</span></h1>
+      <p>{dict.contact.lede}</p>
+    </div>
+    <div class="contact-grid">
+      <form class="contact-form" action={`https://formspree.io/f/${FORMSPREE_ID}`} method="POST">
+        <div class="field">
+          <label for="name">{dict.contact.formName}</label>
+          <input id="name" name="name" type="text" required />
+        </div>
+        <div class="field">
+          <label for="email">{dict.contact.formEmail}</label>
+          <input id="email" name="email" type="email" required />
+        </div>
+        <div class="field">
+          <label for="message">{dict.contact.formMessage}</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button class="submit-btn" type="submit">{dict.contact.formSubmit}</button>
+        <p class="form-note">{dict.contact.formNote}</p>
+      </form>
+      <div>
+        <p class="eyebrow" style="margin-bottom: 16px;">{dict.contact.social}</p>
+        <div class="social-list">
+          <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://behance.net/" target="_blank" rel="noopener noreferrer">Behance</a>
+          <a href="mailto:hello@example.com">Email</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Layout>

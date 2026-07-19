@@ -1,0 +1,6 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import JournalIndexPage from '../../../components/views/JournalIndexPage.astro';
+---
+
+<JournalIndexPage lang="en" altHref={getRelativeLocaleUrl('zh-TW', '/journal/')} />

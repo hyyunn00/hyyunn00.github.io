@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../TopBar.astro';
+import Footer from '../Footer.astro';
+import { t, type Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  altHref: string;
+}
+
+const { lang, altHref } = Astro.props;
+const dict = t(lang);
+---
+
+<Layout lang={lang} title={`${dict.nav.aboutSub} · ${dict.siteTitle}`}>
+  <TopBar lang={lang} active="about" altHref={altHref} />
+  <main id="main" class="page" data-pagefind-body>
+    <div class="page-head">
+      <h1 class="serif">{dict.nav.aboutSub} <span class="en">{dict.nav.about}</span></h1>
+    </div>
+    <div class="about" style="padding-top: clamp(30px, 4vw, 44px);">
+      <div>
+        <div class="tag-row">
+          {dict.about.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      </div>
+      <div>
+        <p class="lede">{dict.about.lede}</p>
+        <p>{dict.about.body1}</p>
+        <p>{dict.about.body2}</p>
+      </div>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Layout>

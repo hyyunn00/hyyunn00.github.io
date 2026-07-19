@@ -1,0 +1,35 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../i18n/ui';
+
+interface Props {
+  entries: CollectionEntry<'journal'>[];
+  lang: Locale;
+  full?: boolean;
+}
+
+const { entries, lang, full = false } = Astro.props;
+
+function slugOf(id: string) {
+  return id.split('/').slice(1).join('/');
+}
+
+const dateFormatter = new Intl.DateTimeFormat(lang === 'zh-TW' ? 'zh-TW' : 'en-US', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+---
+
+<div class={full ? 'journal full' : 'journal'}>
+  {
+    entries.map((entry) => (
+      <a class="entry" href={getRelativeLocaleUrl(lang, `/journal/${slugOf(entry.id)}/`)}>
+        <span class="date mono">{dateFormatter.format(entry.data.date)}</span>
+        <h3>{entry.data.title}</h3>
+        <p>{entry.data.excerpt}</p>
+      </a>
+    ))
+  }
+</div>

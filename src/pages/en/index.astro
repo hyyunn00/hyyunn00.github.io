@@ -1,0 +1,6 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import HomePage from '../../components/views/HomePage.astro';
+---
+
+<HomePage lang="en" altHref={getRelativeLocaleUrl('zh-TW', '/')} />

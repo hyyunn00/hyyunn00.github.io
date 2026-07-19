@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../TopBar.astro';
+import Footer from '../Footer.astro';
+import ProofFrame from '../ProofFrame.astro';
+import WorkGrid from '../WorkGrid.astro';
+import JournalList from '../JournalList.astro';
+import { t, type Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  altHref: string;
+}
+
+const { lang, altHref } = Astro.props;
+const dict = t(lang);
+const folder = lang === 'zh-TW' ? 'zh' : 'en';
+
+const allWork = await getCollection('work', (entry) => entry.id.startsWith(`${folder}/`) && !entry.data.draft);
+allWork.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const featured = allWork[0];
+const workGrid = allWork.slice(0, 4);
+
+const allJournal = await getCollection(
+  'journal',
+  (entry) => entry.id.startsWith(`${folder}/`) && !entry.data.draft,
+);
+allJournal.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const journalPreview = allJournal.slice(0, 3);
+
+function slugOf(id: string) {
+  return id.split('/').slice(1).join('/');
+}
+
+const featuredHref = featured ? getRelativeLocaleUrl(lang, `/work/${slugOf(featured.id)}/`) : undefined;
+const featuredCaption = featured
+  ? [featured.data.location, featured.data.settings, String(featured.data.date.getFullYear())]
+      .filter(Boolean)
+      .join(' · ')
+  : '';
+---
+
+<Layout lang={lang} title={`${dict.siteTitle} — ${dict.siteSubtitle}`}>
+  <TopBar lang={lang} active="home" altHref={altHref} />
+  <main id="main" class="page" data-pagefind-body>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">{dict.hero.eyebrow}</span>
+        <h1 class="serif">
+          {dict.hero.titleLine1}<br />
+          {dict.hero.titleLine2}
+        </h1>
+        <p>{dict.hero.body}</p>
+        <div class="hero-links">
+          <a class="primary" href={getRelativeLocaleUrl(lang, '/work/')}>{dict.hero.cta} →</a>
+          <a href={getRelativeLocaleUrl(lang, '/journal/')}>{dict.hero.ctaSecondary}</a>
+        </div>
+      </div>
+      {
+        featured && (
+          <ProofFrame
+            frameNo={featured.data.frameNo}
+            caption={featuredCaption}
+            swatch={featured.data.cover}
+            href={featuredHref}
+            ariaLabel={featured.data.title}
+          />
+        )
+      }
+    </section>
+
+    <div class="section-head">
+      <h2 class="serif">{dict.section.work} <span class="en">{dict.section.workEn}</span></h2>
+      <a class="view-all" href={getRelativeLocaleUrl(lang, '/work/')}>{dict.section.workViewAll} →</a>
+    </div>
+    <WorkGrid items={workGrid} lang={lang} />
+
+    <div class="section-head">
+      <h2 class="serif">{dict.section.journal} <span class="en">{dict.section.journalEn}</span></h2>
+      <a class="view-all" href={getRelativeLocaleUrl(lang, '/journal/')}>{dict.section.journalViewAll} →</a>
+    </div>
+    <JournalList entries={journalPreview} lang={lang} />
+
+    <div class="section-head">
+      <h2 class="serif">{dict.section.about} <span class="en">{dict.section.aboutEn}</span></h2>
+    </div>
+    <div class="about">
+      <div>
+        <div class="tag-row">
+          {dict.about.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      </div>
+      <div>
+        <p class="lede">{dict.about.lede}</p>
+        <p>{dict.about.body2}</p>
+      </div>
+    </div>
+  </main>
+  <Footer lang={lang} />
+</Layout>

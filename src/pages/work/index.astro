@@ -1,0 +1,6 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import WorkIndexPage from '../../components/views/WorkIndexPage.astro';
+---
+
+<WorkIndexPage lang="zh-TW" altHref={getRelativeLocaleUrl('en', '/work/')} />

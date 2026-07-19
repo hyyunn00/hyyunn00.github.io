@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import JournalDetailPage from '../../../components/views/JournalDetailPage.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('journal', (entry) => entry.id.startsWith('en/') && !entry.data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.id.split('/').slice(1).join('/') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<JournalDetailPage
+  entry={entry}
+  lang="en"
+  altHref={getRelativeLocaleUrl('zh-TW', `/journal/${Astro.params.slug}/`)}
+/>

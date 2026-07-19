@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../TopBar.astro';
+import Footer from '../Footer.astro';
+import JournalList from '../JournalList.astro';
+import { t, type Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  altHref: string;
+}
+
+const { lang, altHref } = Astro.props;
+const dict = t(lang);
+const folder = lang === 'zh-TW' ? 'zh' : 'en';
+
+const entries = await getCollection(
+  'journal',
+  (entry) => entry.id.startsWith(`${folder}/`) && !entry.data.draft,
+);
+entries.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout lang={lang} title={`${dict.nav.journalSub} · ${dict.siteTitle}`}>
+  <TopBar lang={lang} active="journal" altHref={altHref} />
+  <main id="main" class="page" data-pagefind-body>
+    <div class="page-head">
+      <h1 class="serif">{dict.nav.journalSub} <span class="en">{dict.nav.journal}</span></h1>
+    </div>
+    <JournalList entries={entries} lang={lang} full />
+  </main>
+  <Footer lang={lang} />
+</Layout>

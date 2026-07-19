@@ -1,0 +1,44 @@
+---
+interface Props {
+  frameNo: string;
+  caption: string;
+  swatch?: 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
+  href?: string;
+  ariaLabel?: string;
+}
+
+const { frameNo, caption, swatch = 'a', href, ariaLabel } = Astro.props;
+const Tag = href ? 'a' : 'div';
+
+const swatchGradients: Record<string, string> = {
+  a: 'radial-gradient(120% 140% at 20% 15%, #e7e2d3, #b7ab86 70%)',
+  b: 'radial-gradient(120% 140% at 20% 15%, #d7ded9, #7f9089 70%)',
+  c: 'radial-gradient(120% 140% at 20% 15%, #ded4cd, #9c7c6c 70%)',
+  d: 'radial-gradient(120% 140% at 20% 15%, #d9dde0, #8992a1 70%)',
+  e: 'radial-gradient(120% 140% at 20% 15%, #e3d9c8, #8f7a55 70%)',
+  f: 'radial-gradient(120% 140% at 20% 15%, #d8dbe3, #6f7a91 70%)',
+};
+---
+
+<Tag class="proof" href={href} aria-label={ariaLabel} style={`background:${swatchGradients[swatch]}`}>
+  <span class="frameno">No. {frameNo}</span>
+  <span class="mark tl"><svg viewBox="0 0 16 16"><path d="M1 8H8V1" fill="none" stroke-width="1.4"></path></svg></span>
+  <span class="mark tr"><svg viewBox="0 0 16 16"><path d="M1 8H8V1" fill="none" stroke-width="1.4"></path></svg></span>
+  <span class="mark bl"><svg viewBox="0 0 16 16"><path d="M1 8H8V1" fill="none" stroke-width="1.4"></path></svg></span>
+  <span class="mark br"><svg viewBox="0 0 16 16"><path d="M1 8H8V1" fill="none" stroke-width="1.4"></path></svg></span>
+  {
+    href && (
+      <span class="iris">
+        <svg viewBox="0 0 100 100">
+          <polygon class="blade" points="50,50 50,4 66,10" style="transform:rotate(0deg)" />
+          <polygon class="blade" points="50,50 50,4 66,10" style="transform:rotate(60deg)" />
+          <polygon class="blade" points="50,50 50,4 66,10" style="transform:rotate(120deg)" />
+          <polygon class="blade" points="50,50 50,4 66,10" style="transform:rotate(180deg)" />
+          <polygon class="blade" points="50,50 50,4 66,10" style="transform:rotate(240deg)" />
+          <polygon class="blade" points="50,50 50,4 66,10" style="transform:rotate(300deg)" />
+        </svg>
+      </span>
+    )
+  }
+  <span class="caption">{caption}</span>
+</Tag>

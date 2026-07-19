@@ -1,0 +1,58 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TopBar from '../TopBar.astro';
+import Footer from '../Footer.astro';
+import { t, type Locale } from '../../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  altHref: string;
+}
+
+const { lang, altHref } = Astro.props;
+const dict = t(lang);
+---
+
+<Layout lang={lang} title={`${dict.search.title} · ${dict.siteTitle}`}>
+  <TopBar lang={lang} active="home" altHref={altHref} />
+  <main id="main" class="page" data-pagefind-body>
+    <div class="page-head">
+      <h1 class="serif">{dict.search.title}</h1>
+    </div>
+    <div id="pagefind-search" style="padding: clamp(28px, 4vw, 40px) 0 clamp(48px, 6vw, 72px);"></div>
+  </main>
+  <Footer lang={lang} />
+
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+  <script is:inline define:vars={{ lang, placeholder: dict.search.placeholder }}>
+    (async function () {
+      try {
+        await import('/pagefind/pagefind-ui.js');
+        new window.PagefindUI({
+          element: '#pagefind-search',
+          showSubResults: true,
+          showImages: false,
+          translations: { placeholder: placeholder },
+          bundlePath: '/pagefind/',
+        });
+      } catch (e) {
+        document.getElementById('pagefind-search').textContent =
+          lang === 'zh-TW'
+            ? '搜尋索引尚未產生，請先執行 npm run build。'
+            : 'Search index not built yet — run npm run build first.';
+      }
+    })();
+  </script>
+
+  <style is:global>
+    #pagefind-search {
+      --pagefind-ui-primary: var(--accent-strong);
+      --pagefind-ui-text: var(--ink);
+      --pagefind-ui-background: var(--bg);
+      --pagefind-ui-border: var(--line-strong);
+      --pagefind-ui-border-width: 1px;
+      --pagefind-ui-border-radius: 2px;
+      --pagefind-ui-font: 'Noto Sans TC', 'PingFang TC', sans-serif;
+    }
+  </style>
+</Layout>
