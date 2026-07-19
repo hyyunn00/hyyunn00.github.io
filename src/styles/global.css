@@ -304,6 +304,16 @@ nav.primary a.is-active::after {
   text-decoration: none;
   display: block;
 }
+.proof-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.proof.has-image::before {
+  display: none;
+}
 .proof::before {
   content: '';
   position: absolute;
@@ -504,6 +514,9 @@ nav.primary a.is-active::after {
 .frame .swatch {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform 0.5s ease;
 }
 .frame:hover .swatch {
@@ -572,14 +585,74 @@ nav.primary a.is-active::after {
   color: var(--ink-muted);
   margin-bottom: 22px;
 }
-.work-body {
+.work-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 5vw, 56px);
+}
+.block-text {
   max-width: 38em;
   font-size: 1rem;
   line-height: 2.1;
   color: var(--ink-muted);
 }
-.work-body p {
+.block-text p {
   margin: 0 0 1.4em;
+}
+.block-text p:last-child {
+  margin-bottom: 0;
+}
+.block-text a {
+  color: var(--accent-strong);
+}
+.block-photo {
+  margin: 0;
+}
+.block-photo img {
+  width: 100%;
+  display: block;
+  background: var(--bg-raised);
+}
+.block-gallery {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 2), 1fr);
+  gap: 6px;
+}
+.block-gallery img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  background: var(--bg-raised);
+}
+.block-photo figcaption,
+.block-gallery figcaption,
+.block-embed figcaption {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+}
+.block-gallery figcaption {
+  grid-column: 1 / -1;
+}
+.block-embed {
+  margin: 0;
+  position: relative;
+  background: var(--bg-raised);
+}
+.block-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+@media (max-width: 640px) {
+  .block-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* ---------- journal ---------- */

@@ -1,11 +1,11 @@
 ---
-import { render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Layout from '../../layouts/Layout.astro';
 import TopBar from '../TopBar.astro';
 import Footer from '../Footer.astro';
 import ProofFrame from '../ProofFrame.astro';
+import WorkBlocks from '../WorkBlocks.astro';
 import { t, type Locale } from '../../i18n/ui';
 
 interface Props {
@@ -16,7 +16,6 @@ interface Props {
 
 const { entry, lang, altHref } = Astro.props;
 const dict = t(lang);
-const { Content } = await render(entry);
 
 const dateFormatter = new Intl.DateTimeFormat(lang === 'zh-TW' ? 'zh-TW' : 'en-US', {
   year: 'numeric',
@@ -32,7 +31,13 @@ const dateFormatter = new Intl.DateTimeFormat(lang === 'zh-TW' ? 'zh-TW' : 'en-U
       <a class="view-all" href={getRelativeLocaleUrl(lang, '/work/')}>{dict.work.backToAll}</a>
     </div>
     <div style="max-width: 520px; margin-top: 22px;">
-      <ProofFrame frameNo={entry.data.frameNo} caption="" swatch={entry.data.cover} ariaLabel={entry.data.title} />
+      <ProofFrame
+        frameNo={entry.data.frameNo}
+        caption=""
+        swatch={entry.data.cover}
+        image={entry.data.coverImage}
+        ariaLabel={entry.data.title}
+      />
     </div>
     <h1 class="serif" style="font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 30px 0 14px;">{entry.data.title}</h1>
     <div class="work-meta mono">
@@ -40,9 +45,7 @@ const dateFormatter = new Intl.DateTimeFormat(lang === 'zh-TW' ? 'zh-TW' : 'en-U
       {entry.data.location && <span>{entry.data.location}</span>}
       {entry.data.settings && <span>{entry.data.settings}</span>}
     </div>
-    <div class="work-body">
-      <Content />
-    </div>
+    <WorkBlocks blocks={entry.data.blocks} />
   </main>
   <Footer lang={lang} />
 </Layout>

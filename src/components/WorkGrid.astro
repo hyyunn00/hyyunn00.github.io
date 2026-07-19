@@ -19,7 +19,13 @@ function slugOf(id: string) {
   {
     items.map((item) => (
       <a class={`frame swatch-${item.data.cover}`} href={getRelativeLocaleUrl(lang, `/work/${slugOf(item.id)}/`)}>
-        <span class="swatch" />
+        {
+          item.data.coverImage ? (
+            <img class="swatch" src={item.data.coverImage} alt="" loading="lazy" onerror="this.remove()" />
+          ) : (
+            <span class="swatch" />
+          )
+        }
         <span class="frameno">{item.data.frameNo}</span>
         <span class="flabel">{item.data.title}</span>
       </a>

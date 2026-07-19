@@ -5,11 +5,12 @@ interface Props {
   frameNo: string;
   caption: string;
   swatch?: 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
+  image?: string;
   href?: string;
   ariaLabel?: string;
 }
 
-const { frameNo, caption, swatch = 'a', href, ariaLabel } = Astro.props;
+const { frameNo, caption, swatch = 'a', image, href, ariaLabel } = Astro.props;
 const Tag = href ? 'a' : 'div';
 
 const swatchGradients: Record<string, string> = {
@@ -22,7 +23,13 @@ const swatchGradients: Record<string, string> = {
 };
 ---
 
-<Tag class="proof" href={href} aria-label={ariaLabel} style={`background:${swatchGradients[swatch]}`}>
+<Tag
+  class={image ? 'proof has-image' : 'proof'}
+  href={href}
+  aria-label={ariaLabel}
+  style={image ? undefined : `background:${swatchGradients[swatch]}`}
+>
+  {image && <img class="proof-image" src={image} alt="" onerror="this.remove()" />}
   <span class="frameno">No. {frameNo}</span>
   <RegistrationMarks />
   {

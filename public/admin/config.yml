@@ -1,0 +1,130 @@
+# 本機編輯用（不用架設 OAuth）：
+#   1. npm run dev       （另開一個終端機視窗）
+#   2. npm run cms
+#   3. 瀏覽器打開 http://localhost:4321/admin/
+#
+# 之後如果想從任何地方（不只是自己的電腦）編輯，需要另外設定 GitHub OAuth
+# proxy，把下面 local_backend 拿掉、backend 改用真的 GitHub 帳號登入即可，
+# 詳見 README。
+
+backend:
+  name: github
+  repo: hyyunn00/hyyunn00.github.io
+  branch: main
+
+local_backend: true
+
+publish_mode: simple
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+i18n:
+  structure: multiple_folders
+  locales: [zh, en]
+  default_locale: zh
+
+collections:
+  - name: work
+    label: 作品 Work
+    label_singular: 作品項目
+    folder: src/content/work
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    i18n: true
+    identifier_field: title
+    slug: '{{fields.slug}}'
+    fields:
+      - label: 檔名 Slug（英文小寫＋連字號，例如 my-photo-title，中英文版本要一致，建立後請勿修改）
+        name: slug
+        widget: string
+        pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', '請用小寫英文字母、數字、連字號']
+        i18n: duplicate
+      - { label: 標題 Title, name: title, widget: string, i18n: true }
+      - { label: 編號 Frame No.（例如 "10"，兩個語言版本要一樣）, name: frameNo, widget: string, i18n: duplicate }
+      - label: 日期 Date
+        name: date
+        widget: datetime
+        format: 'YYYY-MM-DD'
+        date_format: 'YYYY-MM-DD'
+        time_format: false
+        i18n: duplicate
+      - { label: 地點 Location, name: location, widget: string, required: false, i18n: true }
+      - { label: 拍攝資訊 Settings（例如 f/2.8 · 35mm）, name: settings, widget: string, required: false, i18n: true }
+      - label: 列表頁佔位色塊 Cover Swatch（還沒放真實照片時顯示的顏色）
+        name: cover
+        widget: select
+        options: [a, b, c, d, e, f]
+        default: a
+        i18n: duplicate
+      - label: 封面照片 Cover Image（選填，有上傳的話列表頁和首頁會直接顯示這張，不用佔位色塊）
+        name: coverImage
+        widget: image
+        required: false
+        i18n: duplicate
+      - label: 內容區塊 Blocks（依照順序排列，可以新增／刪除／拖曳調整順序）
+        name: blocks
+        widget: list
+        i18n: true
+        types:
+          - label: 文字 Text
+            name: text
+            widget: object
+            fields:
+              - { label: 內容, name: body, widget: markdown }
+          - label: 單張照片 Photo
+            name: photo
+            widget: object
+            fields:
+              - { label: 照片, name: src, widget: image }
+              - { label: 替代文字 Alt（給無障礙閱讀器用，簡短描述照片內容）, name: alt, widget: string }
+              - { label: 說明文字 Caption, name: caption, widget: string, required: false }
+          - label: 多張照片／拼貼 Gallery
+            name: gallery
+            widget: object
+            fields:
+              - label: 照片們（至少 2 張）
+                name: images
+                widget: list
+                fields:
+                  - { label: 照片, name: src, widget: image }
+                  - { label: 替代文字 Alt, name: alt, widget: string }
+              - { label: 說明文字 Caption, name: caption, widget: string, required: false }
+          - label: 嵌入內容 Embed（YouTube／Vimeo 等，貼「嵌入用」網址，不是一般分享連結）
+            name: embed
+            widget: object
+            fields:
+              - { label: 嵌入網址 URL, name: url, widget: string }
+              - { label: 長寬比 Aspect ratio, name: aspect, widget: string, default: '16/9' }
+              - { label: 說明文字 Caption, name: caption, widget: string, required: false }
+      - { label: 草稿（勾選後不會顯示在網站上）Draft, name: draft, widget: boolean, default: false, required: false, i18n: duplicate }
+
+  - name: journal
+    label: 文章 Journal
+    label_singular: 文章
+    folder: src/content/journal
+    create: true
+    delete: true
+    extension: md
+    format: frontmatter
+    i18n: true
+    identifier_field: title
+    slug: '{{fields.slug}}'
+    fields:
+      - label: 檔名 Slug（英文小寫＋連字號，中英文版本要一致，建立後請勿修改）
+        name: slug
+        widget: string
+        pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', '請用小寫英文字母、數字、連字號']
+        i18n: duplicate
+      - { label: 標題 Title, name: title, widget: string, i18n: true }
+      - label: 日期 Date
+        name: date
+        widget: datetime
+        format: 'YYYY-MM-DD'
+        date_format: 'YYYY-MM-DD'
+        time_format: false
+        i18n: duplicate
+      - { label: 摘要 Excerpt（顯示在列表頁的一兩句話）, name: excerpt, widget: text, i18n: true }
+      - { label: 草稿（勾選後不會顯示在網站上）Draft, name: draft, widget: boolean, default: false, required: false, i18n: duplicate }
+      - { label: 內文 Body, name: body, widget: markdown, i18n: true }

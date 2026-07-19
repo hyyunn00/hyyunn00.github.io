@@ -7,6 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "cms": "decap-server",
     "build": "astro build",
     "postbuild": "pagefind --site dist",
     "preview": "astro preview",
@@ -14,9 +15,12 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^7.1.1"
+    "astro": "^7.1.1",
+    "markdown-it": "^14.3.0"
   },
   "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "decap-server": "^3.9.1",
     "pagefind": "^1.5.2"
   }
 }

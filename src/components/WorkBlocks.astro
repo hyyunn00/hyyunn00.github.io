@@ -1,0 +1,54 @@
+---
+import MarkdownIt from 'markdown-it';
+import type { CollectionEntry } from 'astro:content';
+
+const md = new MarkdownIt({ html: false, linkify: true });
+
+interface Props {
+  blocks: CollectionEntry<'work'>['data']['blocks'];
+}
+
+const { blocks } = Astro.props;
+---
+
+<div class="work-blocks">
+  {
+    blocks.map((block) => {
+      if (block.type === 'text') {
+        return <div class="block block-text" set:html={md.render(block.body)} />;
+      }
+      if (block.type === 'photo') {
+        return (
+          <figure class="block block-photo">
+            <img src={block.src} alt={block.alt} loading="lazy" onerror="this.closest('figure').style.display='none'" />
+            {block.caption && <figcaption class="mono">{block.caption}</figcaption>}
+          </figure>
+        );
+      }
+      if (block.type === 'gallery') {
+        return (
+          <figure class="block block-gallery" style={`--cols: ${Math.min(block.images.length, 3)}`}>
+            {block.images.map((img) => (
+              <img src={img.src} alt={img.alt} loading="lazy" onerror="this.style.display='none'" />
+            ))}
+            {block.caption && <figcaption class="mono">{block.caption}</figcaption>}
+          </figure>
+        );
+      }
+      if (block.type === 'embed') {
+        return (
+          <figure class="block block-embed" style={`aspect-ratio: ${block.aspect}`}>
+            <iframe
+              src={block.url}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            />
+            {block.caption && <figcaption class="mono">{block.caption}</figcaption>}
+          </figure>
+        );
+      }
+      return null;
+    })
+  }
+</div>
