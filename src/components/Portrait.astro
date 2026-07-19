@@ -1,0 +1,15 @@
+---
+import RegistrationMarks from './RegistrationMarks.astro';
+
+interface Props {
+  src: string;
+  alt: string;
+}
+
+const { src, alt } = Astro.props;
+---
+
+<div class="portrait">
+  <img src={src} alt={alt} loading="lazy" onerror="this.style.display='none'" />
+  <RegistrationMarks />
+</div>

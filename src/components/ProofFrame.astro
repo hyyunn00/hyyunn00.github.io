@@ -1,4 +1,6 @@
 ---
+import RegistrationMarks from './RegistrationMarks.astro';
+
 interface Props {
   frameNo: string;
   caption: string;
@@ -22,10 +24,7 @@ const swatchGradients: Record<string, string> = {
 
 <Tag class="proof" href={href} aria-label={ariaLabel} style={`background:${swatchGradients[swatch]}`}>
   <span class="frameno">No. {frameNo}</span>
-  <span class="mark tl"><svg viewBox="0 0 16 16"><path d="M1 8H8V1" fill="none" stroke-width="1.4"></path></svg></span>
-  <span class="mark tr"><svg viewBox="0 0 16 16"><path d="M1 8H8V1" fill="none" stroke-width="1.4"></path></svg></span>
-  <span class="mark bl"><svg viewBox="0 0 16 16"><path d="M1 8H8V1" fill="none" stroke-width="1.4"></path></svg></span>
-  <span class="mark br"><svg viewBox="0 0 16 16"><path d="M1 8H8V1" fill="none" stroke-width="1.4"></path></svg></span>
+  <RegistrationMarks />
   {
     href && (
       <span class="iris">

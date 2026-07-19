@@ -5,7 +5,7 @@ export type Locale = (typeof locales)[number];
 export const ui = {
   'zh-TW': {
     siteTitle: '黃苡恩',
-    siteSubtitle: 'Yi-En Huang',
+    siteSubtitle: 'I-EN HUANG',
     nav: {
       home: 'HOME',
       homeSub: '首頁',
@@ -69,7 +69,7 @@ export const ui = {
     themeToggle: '切換深色 / 淺色',
   },
   en: {
-    siteTitle: 'Yi-En Huang',
+    siteTitle: 'I-EN HUANG',
     siteSubtitle: '黃苡恩',
     nav: {
       home: 'HOME',
@@ -87,7 +87,7 @@ export const ui = {
       eyebrow: 'Photography · Visual Notes',
       titleLine1: 'Calibrating light with a lens,',
       titleLine2: 'calibrating ideas with data.',
-      body: "I'm Yi-En Huang — half my time behind a camera, half in data. I studied informatics within biomedical engineering, but what actually stops me in my tracks is still the light inside a viewfinder. This is where I keep what I shoot, what I write, and what I'm still working out.",
+      body: "I'm I-EN HUANG — half my time behind a camera, half in data. I studied informatics within biomedical engineering, but what actually stops me in my tracks is still the light inside a viewfinder. This is where I keep what I shoot, what I write, and what I'm still working out.",
       cta: 'See the work',
       ctaSecondary: 'Read the latest post',
     },
