@@ -1,17 +1,14 @@
 ---
 title: 關於頁資料
 exhibitions:
-  - year: '2025'
-    title: 範例展覽名稱
-    venue: 範例藝廊・臺北（群展）
-  - year: '2023'
-    title: 範例展覽名稱二
-    venue: 範例空間・臺中（個展）
+  - year: "2026"
+    title: 載地化
+    venue: 看守所・臺北（聯合個展）
 experience:
-  - year: '2025—'
-    title: 範例影像工作室
-    venue: 攝影師（兼職）
-  - year: '2021—2025'
-    title: 範例大學・醫學工程系
+  - year: 2025—2026
+    title: 臺大攝影社
+    venue: 社長
+  - year: 2024—
+    title: 國立臺灣大學・醫學工程學系
     venue: 學士
 ---
