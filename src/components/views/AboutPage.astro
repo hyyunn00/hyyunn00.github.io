@@ -1,8 +1,10 @@
 ---
+import { getEntry } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import TopBar from '../TopBar.astro';
 import Footer from '../Footer.astro';
 import Portrait from '../Portrait.astro';
+import CVList from '../CVList.astro';
 import { t, type Locale } from '../../i18n/ui';
 
 interface Props {
@@ -12,6 +14,8 @@ interface Props {
 
 const { lang, altHref } = Astro.props;
 const dict = t(lang);
+const folder = lang === 'zh-TW' ? 'zh' : 'en';
+const cv = await getEntry('about', `${folder}/info`);
 ---
 
 <Layout lang={lang} title={`${dict.nav.aboutSub} · ${dict.siteTitle}`}>
@@ -33,6 +37,32 @@ const dict = t(lang);
         <p>{dict.about.body2}</p>
       </div>
     </div>
+
+    {
+      cv && cv.data.exhibitions.length > 0 && (
+        <>
+          <div class="section-head">
+            <h2 class="serif">
+              {dict.about.exhibitionsTitle} <span class="en">{dict.about.exhibitionsTitleEn}</span>
+            </h2>
+          </div>
+          <CVList entries={cv.data.exhibitions} />
+        </>
+      )
+    }
+
+    {
+      cv && cv.data.experience.length > 0 && (
+        <>
+          <div class="section-head">
+            <h2 class="serif">
+              {dict.about.experienceTitle} <span class="en">{dict.about.experienceTitleEn}</span>
+            </h2>
+          </div>
+          <CVList entries={cv.data.experience} />
+        </>
+      )
+    }
   </main>
   <Footer lang={lang} />
 </Layout>

@@ -35,6 +35,7 @@ npm run cms   # 再開一個終端機視窗，啟動後台
   - **多張照片／拼貼 Gallery**：一組照片（2 張以上），會排成格狀
   - **嵌入內容 Embed**：貼 YouTube／Vimeo 等的「嵌入用」網址（不是一般分享連結）
 - 直接在後台上傳照片，會自動存到 `public/images/uploads/`
+- 編輯「關於頁資料」裡的「展覽 Exhibitions」「學經歷 Education & Experience」——這兩個清單會顯示在 About 頁面，一筆一筆列出年份、名稱、地點／備註，新增／刪除／排序都在後台操作
 
 改完的內容會直接寫進本機的檔案（跟你自己用編輯器改檔案一樣），git 還是要照平常的方式 commit / push。
 

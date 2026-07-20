@@ -759,6 +759,52 @@ nav.primary a.is-active::after {
   line-height: 1.85;
 }
 
+/* ---------- cv list (exhibitions / experience) ---------- */
+.cv-list {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: clamp(24px, 4vw, 40px);
+}
+.cv-row {
+  display: flex;
+  gap: 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+.cv-row:last-child {
+  border-bottom: none;
+}
+.cv-year {
+  flex: 0 0 auto;
+  width: 6em;
+  padding-top: 2px;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+}
+.cv-body {
+  flex: 1;
+  min-width: 0;
+}
+.cv-title {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+.cv-venue {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+@media (max-width: 500px) {
+  .cv-row {
+    gap: 14px;
+  }
+  .cv-year {
+    width: 4.4em;
+  }
+}
+
 /* ---------- contact ---------- */
 .contact-grid {
   display: grid;

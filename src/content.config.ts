@@ -57,4 +57,19 @@ const journal = defineCollection({
   }),
 });
 
-export const collections = { work, journal };
+const cvEntrySchema = z.object({
+  year: z.string(),
+  title: z.string(),
+  venue: z.string().optional(),
+});
+
+const about = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/about' }),
+  schema: z.object({
+    title: z.string().optional(),
+    exhibitions: z.array(cvEntrySchema).default([]),
+    experience: z.array(cvEntrySchema).default([]),
+  }),
+});
+
+export const collections = { work, journal, about };

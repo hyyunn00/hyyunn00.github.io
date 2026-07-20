@@ -1,0 +1,27 @@
+---
+interface Entry {
+  year: string;
+  title: string;
+  venue?: string;
+}
+
+interface Props {
+  entries: Entry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<div class="cv-list">
+  {
+    entries.map((entry) => (
+      <div class="cv-row">
+        <span class="cv-year mono">{entry.year}</span>
+        <div class="cv-body">
+          <p class="cv-title">{entry.title}</p>
+          {entry.venue && <p class="cv-venue">{entry.venue}</p>}
+        </div>
+      </div>
+    ))
+  }
+</div>

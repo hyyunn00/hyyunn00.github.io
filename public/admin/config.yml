@@ -128,3 +128,34 @@ collections:
       - { label: 摘要 Excerpt（顯示在列表頁的一兩句話）, name: excerpt, widget: text, i18n: true }
       - { label: 草稿（勾選後不會顯示在網站上）Draft, name: draft, widget: boolean, default: false, required: false, i18n: duplicate }
       - { label: 內文 Body, name: body, widget: markdown, i18n: true }
+
+  - name: about
+    label: 關於頁資料 About Info
+    label_singular: 關於頁資料
+    folder: src/content/about
+    create: false
+    delete: false
+    extension: md
+    format: frontmatter
+    i18n: true
+    identifier_field: title
+    fields:
+      - { label: 標題（僅供後台顯示，不會出現在網站上）, name: title, widget: hidden, default: 關於頁資料 }
+      - label: 展覽 Exhibitions
+        name: exhibitions
+        widget: list
+        i18n: true
+        summary: '{{fields.year}} — {{fields.title}}'
+        fields:
+          - { label: 年份 Year（例如 2025，或 2021—2025）, name: year, widget: string }
+          - { label: 展覽名稱 Title, name: title, widget: string }
+          - { label: 地點／備註 Venue（選填，例如「範例藝廊・臺北（群展）」）, name: venue, widget: string, required: false }
+      - label: 學經歷 Education & Experience
+        name: experience
+        widget: list
+        i18n: true
+        summary: '{{fields.year}} — {{fields.title}}'
+        fields:
+          - { label: 年份 Year（例如 2021—2025，或 2025—）, name: year, widget: string }
+          - { label: 名稱 Title（學校科系或公司職稱）, name: title, widget: string }
+          - { label: 備註 Venue（選填，例如「學士」「攝影師（兼職）」）, name: venue, widget: string, required: false }
