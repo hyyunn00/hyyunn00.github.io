@@ -34,10 +34,10 @@ collections:
     format: frontmatter
     i18n: true
     identifier_field: title
-    slug: '{{fields.slug}}'
+    slug: '{{fields.entrySlug}}'
     fields:
       - label: 檔名 Slug（英文小寫＋連字號，例如 my-photo-title，中英文版本要一致，建立後請勿修改）
-        name: slug
+        name: entrySlug
         widget: string
         pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', '請用小寫英文字母、數字、連字號']
         i18n: duplicate
@@ -63,7 +63,9 @@ collections:
         widget: image
         required: false
         i18n: duplicate
-      - label: 內容區塊 Blocks（依照順序排列，可以新增／刪除／拖曳調整順序）
+      - label: >-
+          內容區塊 Blocks（依照順序排列，可以新增／刪除／拖曳調整順序。中英文的區塊是分開的：建議先把一個語言的照片都放好，
+          再點上面「Fill in from another locale」整個複製過去，另一邊只要改文字，照片不用重新上傳）
         name: blocks
         widget: list
         i18n: true
@@ -95,7 +97,11 @@ collections:
             name: embed
             widget: object
             fields:
-              - { label: 嵌入網址 URL, name: url, widget: string }
+              - {
+                  label: '嵌入網址 URL（貼網址本身，或直接貼整段 <iframe> 程式碼都可以，系統會自動抓出網址）',
+                  name: url,
+                  widget: string,
+                }
               - { label: 長寬比 Aspect ratio, name: aspect, widget: string, default: '16/9' }
               - { label: 說明文字 Caption, name: caption, widget: string, required: false }
       - { label: 草稿（勾選後不會顯示在網站上）Draft, name: draft, widget: boolean, default: false, required: false, i18n: duplicate }
@@ -110,10 +116,10 @@ collections:
     format: frontmatter
     i18n: true
     identifier_field: title
-    slug: '{{fields.slug}}'
+    slug: '{{fields.entrySlug}}'
     fields:
       - label: 檔名 Slug（英文小寫＋連字號，中英文版本要一致，建立後請勿修改）
-        name: slug
+        name: entrySlug
         widget: string
         pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', '請用小寫英文字母、數字、連字號']
         i18n: duplicate

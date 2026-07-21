@@ -1,5 +1,4 @@
 ---
-slug: viscous-field
 title: Viscous Field
 frameNo: "05"
 date: 2026-06-29
@@ -15,5 +14,4 @@ blocks:
       allow="clipboard-write"
       refererPolicy="strict-origin-when-cross-origin"></iframe>
     caption: Viscous Field on Behance
-draft: null
 ---

@@ -1,5 +1,4 @@
 ---
-slug: viscous-field
 title: 滯域
 frameNo: "05"
 date: 2026-06-29
