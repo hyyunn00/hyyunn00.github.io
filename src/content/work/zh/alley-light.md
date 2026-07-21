@@ -1,14 +1,13 @@
 ---
-title: 巷口・光
+entrySlug: janeyeh-2026-bd
+title: 2026 JaneYeh Birthday Tour
 frameNo: "04"
-date: 2026-05-14
-location: 臺北・大同區
+date: 2026-06-13
+location: 臺北・萬華區
 settings: f/2.8 · 35mm
 cover: a
+coverImage: /images/uploads/dscf9260.jpg
 blocks:
   - type: text
-    body: |
-      下午四點半，光會斜斜地切進這條巷子，只維持大概十分鐘。我在這個路口等了三次才拍到想要的角度——不是等光，是等一個剛好會被光照到的人走過去。
-
-      底片沖出來之前我一直記錯曝光值，後來發現差的那一格反而是對的。
+    body: 漂亮小寶葉芷妤
 ---
