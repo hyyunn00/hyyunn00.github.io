@@ -1,14 +1,18 @@
 ---
-title: 病房外的樹
+slug: viscous-field
+title: 滯域
 frameNo: "05"
-date: 2026-04-02
-location: 臺北・中正區
-settings: f/4 · 50mm
+date: 2026-06-29
+location: 臺北・大安區
+settings: f/2.0 · 35mm
 cover: b
+coverImage: /images/uploads/all.jpg
 blocks:
-  - type: text
-    body: |
-      去醫院陪家人回診那幾週，每次都會經過同一扇窗。樹沒有變，但我每次看它的心情都不一樣。
-
-      後來想想，這大概是這系列真正想拍的東西——不是樹，是我站在那裡的心情。
+  - type: embed
+    aspect: 16/9
+    url: <iframe src="https://www.behance.net/embed/project/252540113?ilo0=1"
+      height="316" width="404" allowfullscreen lazyload frameborder="0"
+      allow="clipboard-write"
+      refererPolicy="strict-origin-when-cross-origin"></iframe>
+    caption: 滯域 on Behance
 ---

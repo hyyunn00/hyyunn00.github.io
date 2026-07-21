@@ -1,14 +1,19 @@
 ---
-title: The Tree Outside the Ward
+slug: viscous-field
+title: Viscous Field
 frameNo: "05"
-date: 2026-04-02
-location: Zhongzheng, Taipei
-settings: f/4 · 50mm
+date: 2026-06-29
+location: Da-an, Taipei
+settings: f/2.0 · 35mm
 cover: b
+coverImage: /images/uploads/all.jpg
 blocks:
-  - type: text
-    body: |
-      The weeks I spent accompanying family to hospital checkups, I passed the same window every time. The tree never changed, but I never felt the same way looking at it twice.
-
-      I think that's actually what this series is about — not the tree, but whatever state I was in standing there.
+  - type: embed
+    aspect: 16/9
+    url: <iframe src="https://www.behance.net/embed/project/252540113?ilo0=1"
+      height="316" width="404" allowfullscreen lazyload frameborder="0"
+      allow="clipboard-write"
+      refererPolicy="strict-origin-when-cross-origin"></iframe>
+    caption: Viscous Field on Behance
+draft: null
 ---
