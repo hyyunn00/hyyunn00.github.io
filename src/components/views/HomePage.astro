@@ -20,8 +20,15 @@ const folder = lang === 'zh-TW' ? 'zh' : 'en';
 
 const allWork = await getCollection('work', (entry) => entry.id.startsWith(`${folder}/`) && !entry.data.draft);
 allWork.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const featured = allWork[0];
-const workGrid = allWork.slice(0, 4);
+
+// Manual picks (checked in the CMS) win; if nothing's picked, fall back to
+// most-recent-by-date so the homepage never ends up empty.
+const featuredPicks = allWork.filter((entry) => entry.data.featured);
+const featured = featuredPicks[0] ?? allWork[0];
+
+const rest = allWork.filter((entry) => entry.id !== featured?.id);
+const gridPicks = rest.filter((entry) => entry.data.showOnHome);
+const workGrid = (gridPicks.length > 0 ? gridPicks : rest).slice(0, 4);
 
 const allJournal = await getCollection(
   'journal',

@@ -3,11 +3,14 @@ import { glob } from 'astro/loaders';
 
 // The CMS's boolean widget can serialize an untouched checkbox as `null`
 // instead of omitting the field, which a plain z.boolean() rejects outright.
-const draftField = z
-  .boolean()
-  .nullable()
-  .optional()
-  .transform((v) => v ?? false);
+function booleanField(fallback: boolean) {
+  return z
+    .boolean()
+    .nullable()
+    .optional()
+    .transform((v) => v ?? fallback);
+}
+const draftField = booleanField(false);
 
 // Embed codes are often copy-pasted as a whole <iframe> snippet rather than
 // the bare src URL — pull the URL out of that if it looks like markup.
@@ -57,6 +60,8 @@ const work = defineCollection({
     settings: z.string().optional(),
     cover: z.enum(['a', 'b', 'c', 'd', 'e', 'f']).default('a'),
     coverImage: z.string().optional(),
+    featured: booleanField(false),
+    showOnHome: booleanField(false),
     blocks: z.array(blockSchema).default([]),
     draft: draftField,
   }),

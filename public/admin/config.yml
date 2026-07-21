@@ -58,9 +58,25 @@ collections:
         options: [a, b, c, d, e, f]
         default: a
         i18n: duplicate
-      - label: 封面照片 Cover Image（選填，有上傳的話列表頁和首頁會直接顯示這張，不用佔位色塊）
+      - label: 封面照片 Cover Image（選填，有上傳的話列表頁和首頁會直接顯示這張，不用佔位色塊。只會用在列表縮圖跟首頁，作品內頁不會再顯示一次）
         name: coverImage
         widget: image
+        required: false
+        i18n: duplicate
+      - label: >-
+          首頁大圖精選 Featured on homepage（勾選這篇會變成首頁標題旁的大圖。如果同時勾選好幾篇，取最新一篇；
+          都不勾的話會自動顯示最新的作品）
+        name: featured
+        widget: boolean
+        default: false
+        required: false
+        i18n: duplicate
+      - label: >-
+          顯示在首頁「近期作品」Show in homepage grid（勾選後會出現在首頁下方的作品格，最多顯示 4 篇，
+          超過的話取最新的 4 篇；都不勾的話會自動顯示最新的幾篇，不會跟上面的大圖精選重複）
+        name: showOnHome
+        widget: boolean
+        default: false
         required: false
         i18n: duplicate
       - label: >-
