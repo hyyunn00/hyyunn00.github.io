@@ -6,7 +6,7 @@ date: 2026-06-29
 location: Daan．Taipei
 settings: ""
 cover: a
-coverImage: /images/uploads/website.jpg
+coverImage: /images/uploads/black.jpg
 featured: true
 showOnHome: true
 blocks:
