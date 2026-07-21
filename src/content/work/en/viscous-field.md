@@ -7,6 +7,8 @@ location: Daan．Taipei
 settings: ""
 cover: a
 coverImage: /images/uploads/website.jpg
+featured: true
+showOnHome: true
 blocks:
   - type: text
     body: >-

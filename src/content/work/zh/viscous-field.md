@@ -7,6 +7,8 @@ location: 大安．台北
 settings: ""
 cover: a
 coverImage: /images/uploads/website.jpg
+featured: true
+showOnHome: true
 blocks:
   - type: text
     body: >
