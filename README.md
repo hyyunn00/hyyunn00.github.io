@@ -108,6 +108,20 @@ excerpt: 一兩句話的摘要，會顯示在列表頁。
 - **格式**：JPG 或 WebP 皆可，一般照片用 JPG 就好。
 - **GitHub 的硬性上限**：單一檔案超過 100MB 會直接被拒絕上傳，超過 50MB 會跳警告——但這遠超過網站實際需要的大小，正常壓縮過的照片不會碰到這個問題。
 
+### 一鍵壓縮：`scripts/compress-images.py`
+
+不想每張手動用 Squoosh 壓的話，有一支小工具可以把整個資料夾的照片自動壓到指定大小以下（預設 1MB，超過的才會處理，已經夠小的會跳過）：
+
+```sh
+pip3 install pillow          # 只需要裝一次
+npm run compress-images                          # 處理 public/images/uploads/，壓到 1MB 以下
+npm run compress-images -- public/images         # 處理其他資料夾
+npm run compress-images -- --max-mb 0.5          # 改成 0.5MB
+npm run compress-images -- --dry-run             # 先預覽會怎麼壓，不實際寫檔
+```
+
+運作方式：先用畫質 90 試壓成 JPG，太大的話逐步降畫質；還是太大就把長邊縮小重試，直到符合目標大小或降到最小 600px 為止。`.jpg`／`.jpeg` 會保留原檔名覆蓋；`.png`／`.webp` 會轉成 `.jpg`（檔名跟著變，如果該圖片已經被某篇文章的 `src` 欄位引用，記得同步更新路徑）。
+
 ## 想改文字、導覽列、頁尾
 
 大部分固定文字（導覽列、按鈕文字、關於頁的自我介紹等）都集中在 [src/i18n/ui.ts](src/i18n/ui.ts) 這一個檔案，中英文對照著寫，改這裡最快。

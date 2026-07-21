@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "cms": "decap-server",
+    "compress-images": "python3 scripts/compress-images.py",
     "build": "astro build",
     "postbuild": "pagefind --site dist",
     "preview": "astro preview",
